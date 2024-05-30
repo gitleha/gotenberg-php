@@ -13,7 +13,7 @@ it(
      * @param Stream[] $pdfs
      * @param array<string,string|bool|float|int|array<string>> $metadata
      */
-    function (array $pdfs, string|null $pdfa = null, bool $pdfua = false, array $metadata = []): void {
+    function (array $pdfs, ?string $pdfa = null, bool $pdfua = false, array $metadata = []): void {
         $pdfEngines = Gotenberg::pdfEngines('')->index(new DummyIndex());
 
         if ($pdfa !== null) {

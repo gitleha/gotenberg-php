@@ -46,7 +46,7 @@ class Gotenberg
      *
      * @throws GotenbergApiErrored
      */
-    public static function send(RequestInterface $request, ClientInterface|null $client = null): ResponseInterface
+    public static function send(RequestInterface $request, ?ClientInterface $client = null): ResponseInterface
     {
         $client   = $client ?: Psr18ClientDiscovery::find();
         $response = $client->sendRequest($request);
@@ -66,7 +66,7 @@ class Gotenberg
      * @throws NoOutputFileInResponse
      * @throws NativeFunctionErrored
      */
-    public static function save(RequestInterface $request, string $dirPath, ClientInterface|null $client = null): string
+    public static function save(RequestInterface $request, string $dirPath, ?ClientInterface $client = null): string
     {
         $response = self::send($request, $client);
 

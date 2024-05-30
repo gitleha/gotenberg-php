@@ -15,12 +15,12 @@ it(
      */
     function (
         array $files,
-        string|null $password = null,
+        ?string $password = null,
         bool $landscape = false,
-        string|null $nativePageRanges = null,
-        bool|null $exportFormFields = null,
+        ?string $nativePageRanges = null,
+        ?bool $exportFormFields = null,
         bool $allowDuplicateFieldNames = false,
-        bool|null $exportBookmarks = null,
+        ?bool $exportBookmarks = null,
         bool $exportBookmarksToPdfDestination = false,
         bool $exportPlaceholders = false,
         bool $exportNotes = false,
@@ -34,13 +34,13 @@ it(
         bool $addOriginalDocumentAsStream = false,
         bool $singlePageSheets = false,
         bool $losslessImageCompression = false,
-        int|null $quality = null,
+        ?int $quality = null,
         bool $reduceImageResolution = false,
-        int|null $maxImageResolution = null,
-        string|null $pdfa = null,
+        ?int $maxImageResolution = null,
+        ?string $pdfa = null,
         bool $pdfua = false,
         array $metadata = [],
-        bool $merge = false,
+        bool $merge = false
     ): void {
         $libreOffice = Gotenberg::libreOffice('');
 
