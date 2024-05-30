@@ -58,7 +58,7 @@ it(
 
 it(
     'throws an exception if there is no attachment',
-    function (string|null $contentDisposition): void {
+    function (?string $contentDisposition): void {
         $response = new Response(200, $contentDisposition === null ? [] : ['Content-Disposition' => $contentDisposition]);
         $client   = new DummyClient($response);
 

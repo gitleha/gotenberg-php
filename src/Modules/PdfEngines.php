@@ -17,7 +17,7 @@ class PdfEngines
 {
     use MultipartFormDataModule;
 
-    private Index|null $index = null;
+    private ?Index $index = null;
 
     /**
      * Overrides the default index generator for ordering

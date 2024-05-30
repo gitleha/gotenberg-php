@@ -15,7 +15,11 @@ use function fwrite;
 
 class Stream
 {
-    public static function path(string $path, string|null $filename = null): self
+    private string $filename;
+
+    private StreamInterface $stream;
+
+    public static function path(string $path, $filename = null): self
     {
         $filename ??= basename($path);
 
@@ -37,8 +41,10 @@ class Stream
         return new self($filename, Utils::streamFor($inmemory));
     }
 
-    public function __construct(private string $filename, private StreamInterface $stream)
+    public function __construct(string $filename, StreamInterface $stream)
     {
+        $this->filename = $filename;
+        $this->stream = $stream;
     }
 
     public function getFilename(): string

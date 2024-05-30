@@ -17,7 +17,7 @@ class LibreOffice
 {
     use MultipartFormDataModule;
 
-    private Index|null $index = null;
+    private ?Index $index = null;
     private bool $merge       = false;
 
     /**

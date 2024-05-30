@@ -18,22 +18,22 @@ it(
      */
     function (
         string $url,
-        int|null $width = null,
-        int|null $height = null,
+        ?int $width = null,
+        ?int $height = null,
         bool $clip = false,
-        string|null $format = null,
-        int|null $quality = null,
+        ?string $format = null,
+        ?int $quality = null,
         bool $optimizeForSpeed = false,
         bool $omitBackground = false,
-        string|null $waitDelay = null,
-        string|null $waitForExpression = null,
-        string|null $emulatedMediaType = null,
+        ?string $waitDelay = null,
+        ?string $waitForExpression = null,
+        ?string $emulatedMediaType = null,
         array $cookies = [],
         array $extraHttpHeaders = [],
         array $failOnHttpStatusCodes = [],
         bool $failOnConsoleExceptions = false,
         bool $skipNetworkIdleEvent = false,
-        array $assets = [],
+        array $assets = []
     ): void {
         $chromium = Gotenberg::chromium('')->screenshot();
         $chromium = hydrateChromiumScreenshotFormData(
@@ -123,22 +123,22 @@ it(
      */
     function (
         Stream $index,
-        int|null $width = null,
-        int|null $height = null,
+        ?int $width = null,
+        ?int $height = null,
         bool $clip = false,
-        string|null $format = null,
-        int|null $quality = null,
+        ?string $format = null,
+        ?int $quality = null,
         bool $optimizeForSpeed = false,
         bool $omitBackground = false,
-        string|null $waitDelay = null,
-        string|null $waitForExpression = null,
-        string|null $emulatedMediaType = null,
+        ?string $waitDelay = null,
+        ?string $waitForExpression = null,
+        ?string $emulatedMediaType = null,
         array $cookies = [],
         array $extraHttpHeaders = [],
         array $failOnHttpStatusCodes = [],
         bool $failOnConsoleExceptions = false,
         bool $skipNetworkIdleEvent = false,
-        array $assets = [],
+        array $assets = []
     ): void {
         $chromium = Gotenberg::chromium('')->screenshot();
         $chromium = hydrateChromiumScreenshotFormData(
@@ -232,22 +232,22 @@ it(
     function (
         Stream $index,
         array $markdowns,
-        int|null $width = null,
-        int|null $height = null,
+        ?int $width = null,
+        ?int $height = null,
         bool $clip = false,
-        string|null $format = null,
-        int|null $quality = null,
+        ?string $format = null,
+        ?int $quality = null,
         bool $optimizeForSpeed = false,
         bool $omitBackground = false,
-        string|null $waitDelay = null,
-        string|null $waitForExpression = null,
-        string|null $emulatedMediaType = null,
+        ?string $waitDelay = null,
+        ?string $waitForExpression = null,
+        ?string $emulatedMediaType = null,
         array $cookies = [],
         array $extraHttpHeaders = [],
         array $failOnHttpStatusCodes = [],
         bool $failOnConsoleExceptions = false,
         bool $skipNetworkIdleEvent = false,
-        array $assets = [],
+        array $assets = []
     ): void {
         $chromium = Gotenberg::chromium('')->screenshot();
         $chromium = hydrateChromiumScreenshotFormData(
@@ -351,22 +351,22 @@ it(
  */
 function hydrateChromiumScreenshotFormData(
     ChromiumScreenshot $chromium,
-    int|null $width,
-    int|null $height,
+    ?int $width,
+    ?int $height,
     bool $clip,
-    string|null $format = null,
-    int|null $quality = null,
+    ?string $format = null,
+    ?int $quality = null,
     bool $optimizeForSpeed = false,
     bool $omitBackground = false,
-    string|null $waitDelay = null,
-    string|null $waitForExpression = null,
-    string|null $emulatedMediaType = null,
+    ?string $waitDelay = null,
+    ?string $waitForExpression = null,
+    ?string $emulatedMediaType = null,
     array $cookies = [],
     array $extraHttpHeaders = [],
     array $failOnHttpStatusCodes = [],
     bool $failOnConsoleExceptions = false,
     bool $skipNetworkIdleEvent = false,
-    array $assets = [],
+    array $assets = []
 ): ChromiumScreenshot {
     if ($width !== null) {
         $chromium->width($width);
@@ -455,22 +455,22 @@ function hydrateChromiumScreenshotFormData(
  */
 function expectChromiumScreenshotOptions(
     string $body,
-    int|null $width,
-    int|null $height,
+    ?int $width,
+    ?int $height,
     bool $clip,
-    string|null $format,
-    int|null $quality,
+    ?string $format,
+    ?int $quality,
     bool $optimizeForSpeed,
     bool $omitBackground,
-    string|null $waitDelay,
-    string|null $waitForExpression,
-    string|null $emulatedMediaType,
+    ?string $waitDelay,
+    ?string $waitForExpression,
+    ?string $emulatedMediaType,
     array $cookies,
     array $extraHttpHeaders,
     array $failOnHttpStatusCodes,
     bool $failOnConsoleExceptions,
     bool $skipNetworkIdleEvent,
-    array $assets,
+    array $assets
 ): void {
     expect($body)->unless($width === null, fn ($body) => $body->toContainFormValue('width', $width . ''));
     expect($body)->unless($height === null, fn ($body) => $body->toContainFormValue('height', $height . ''));

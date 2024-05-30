@@ -16,13 +16,13 @@ it(
     function (
         array $files,
         bool $landscape = false,
-        string|null $nativePageRanges = null,
-        bool|null $exportFormFields = null,
+        ?string $nativePageRanges = null,
+        ?bool $exportFormFields = null,
         bool $singlePageSheets = false,
-        string|null $pdfa = null,
+        ?string $pdfa = null,
         bool $pdfua = false,
         array $metadata = [],
-        bool $merge = false,
+        bool $merge = false
     ): void {
         $libreOffice = Gotenberg::libreOffice('');
 

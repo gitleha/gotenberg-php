@@ -6,8 +6,11 @@ namespace Gotenberg\Modules;
 
 class Chromium
 {
-    public function __construct(public readonly string $baseUrl)
+    public string $baseUrl;
+
+    public function __construct(string $baseUrl)
     {
+        $this->baseUrl = $baseUrl;
     }
 
     public function pdf(): ChromiumPdf

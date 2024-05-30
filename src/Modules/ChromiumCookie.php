@@ -8,15 +8,30 @@ use JsonSerializable;
 
 class ChromiumCookie implements JsonSerializable
 {
+    public string $name;
+    public string $value;
+    public string $domain;
+    public ?string $path = null;
+    public ?bool $secure = null;
+    public ?bool $httpOnly = null;
+    public ?string $sameSite = null;
+
     public function __construct(
-        public readonly string $name,
-        public readonly string $value,
-        public readonly string $domain,
-        public readonly string|null $path = null,
-        public readonly bool|null $secure = null,
-        public readonly bool|null $httpOnly = null,
-        public readonly string|null $sameSite = null,
+        string $name,
+        string $value,
+        string $domain,
+        ?string $path = null,
+        ?bool $secure = null,
+        ?bool $httpOnly = null,
+        ?string $sameSite = null
     ) {
+        $this->name = $name;
+        $this->value = $value;
+        $this->domain = $domain;
+        $this->path = $path;
+        $this->secure = $secure;
+        $this->httpOnly = $httpOnly;
+        $this->sameSite = $sameSite;
     }
 
     /** @return array<string, string|bool> */
