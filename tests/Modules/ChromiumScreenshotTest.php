@@ -29,11 +29,10 @@ it(
         ?string $waitForExpression = null,
         ?string $emulatedMediaType = null,
         array $cookies = [],
-        ?string $userAgent = null,
         array $extraHttpHeaders = [],
         array $failOnHttpStatusCodes = [],
         bool $failOnConsoleExceptions = false,
-        ?bool $skipNetworkIdleEvent = null,
+        bool $skipNetworkIdleEvent = false,
         array $assets = []
     ): void {
         $chromium = Gotenberg::chromium('')->screenshot();
@@ -50,7 +49,6 @@ it(
             $waitForExpression,
             $emulatedMediaType,
             $cookies,
-            $userAgent,
             $extraHttpHeaders,
             $failOnHttpStatusCodes,
             $failOnConsoleExceptions,
@@ -77,7 +75,6 @@ it(
             $waitForExpression,
             $emulatedMediaType,
             $cookies,
-            $userAgent,
             $extraHttpHeaders,
             $failOnHttpStatusCodes,
             $failOnConsoleExceptions,
@@ -103,7 +100,6 @@ it(
             new ChromiumCookie('yummy_cookie', 'choco', 'theyummycookie.com'),
             new ChromiumCookie('vanilla_cookie', 'vanilla', 'theyummycookie.com', '/', true, true, 'Lax'),
         ],
-        'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko)',
         [
             'My-Http-Header' => 'HTTP Header content',
             'My-Second-Http-Header' => 'Second HTTP Header content',
@@ -138,11 +134,10 @@ it(
         ?string $waitForExpression = null,
         ?string $emulatedMediaType = null,
         array $cookies = [],
-        ?string $userAgent = null,
         array $extraHttpHeaders = [],
         array $failOnHttpStatusCodes = [],
         bool $failOnConsoleExceptions = false,
-        ?bool $skipNetworkIdleEvent = null,
+        bool $skipNetworkIdleEvent = false,
         array $assets = []
     ): void {
         $chromium = Gotenberg::chromium('')->screenshot();
@@ -159,7 +154,6 @@ it(
             $waitForExpression,
             $emulatedMediaType,
             $cookies,
-            $userAgent,
             $extraHttpHeaders,
             $failOnHttpStatusCodes,
             $failOnConsoleExceptions,
@@ -188,7 +182,6 @@ it(
             $waitForExpression,
             $emulatedMediaType,
             $cookies,
-            $userAgent,
             $extraHttpHeaders,
             $failOnHttpStatusCodes,
             $failOnConsoleExceptions,
@@ -214,7 +207,6 @@ it(
             new ChromiumCookie('yummy_cookie', 'choco', 'theyummycookie.com'),
             new ChromiumCookie('vanilla_cookie', 'vanilla', 'theyummycookie.com', '/', true, true, 'Lax'),
         ],
-        'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko)',
         [
             'My-Http-Header' => 'Http Header content',
             'My-Second-Http-Header' => 'Second Http Header content',
@@ -251,11 +243,10 @@ it(
         ?string $waitForExpression = null,
         ?string $emulatedMediaType = null,
         array $cookies = [],
-        ?string $userAgent = null,
         array $extraHttpHeaders = [],
         array $failOnHttpStatusCodes = [],
         bool $failOnConsoleExceptions = false,
-        ?bool $skipNetworkIdleEvent = null,
+        bool $skipNetworkIdleEvent = false,
         array $assets = []
     ): void {
         $chromium = Gotenberg::chromium('')->screenshot();
@@ -272,7 +263,6 @@ it(
             $waitForExpression,
             $emulatedMediaType,
             $cookies,
-            $userAgent,
             $extraHttpHeaders,
             $failOnHttpStatusCodes,
             $failOnConsoleExceptions,
@@ -306,7 +296,6 @@ it(
             $waitForExpression,
             $emulatedMediaType,
             $cookies,
-            $userAgent,
             $extraHttpHeaders,
             $failOnHttpStatusCodes,
             $failOnConsoleExceptions,
@@ -341,7 +330,6 @@ it(
             new ChromiumCookie('yummy_cookie', 'choco', 'theyummycookie.com'),
             new ChromiumCookie('vanilla_cookie', 'vanilla', 'theyummycookie.com', '/', true, true, 'Lax'),
         ],
-        'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko)',
         [
             'My-Http-Header' => 'Http Header content',
             'My-Second-Http-Header' => 'Second Http Header content',
@@ -374,11 +362,10 @@ function hydrateChromiumScreenshotFormData(
     ?string $waitForExpression = null,
     ?string $emulatedMediaType = null,
     array $cookies = [],
-    ?string $userAgent = null,
     array $extraHttpHeaders = [],
     array $failOnHttpStatusCodes = [],
     bool $failOnConsoleExceptions = false,
-    ?bool $skipNetworkIdleEvent = null,
+    bool $skipNetworkIdleEvent = false,
     array $assets = []
 ): ChromiumScreenshot {
     if ($width !== null) {
@@ -437,10 +424,6 @@ function hydrateChromiumScreenshotFormData(
         $chromium->cookies($cookies);
     }
 
-    if ($userAgent !== null) {
-        $chromium->userAgent($userAgent);
-    }
-
     if (count($extraHttpHeaders) > 0) {
         $chromium->extraHttpHeaders($extraHttpHeaders);
     }
@@ -453,8 +436,8 @@ function hydrateChromiumScreenshotFormData(
         $chromium->failOnConsoleExceptions();
     }
 
-    if ($skipNetworkIdleEvent !== null) {
-        $chromium->skipNetworkIdleEvent($skipNetworkIdleEvent);
+    if ($skipNetworkIdleEvent) {
+        $chromium->skipNetworkIdleEvent();
     }
 
     if (count($assets) > 0) {
@@ -483,11 +466,10 @@ function expectChromiumScreenshotOptions(
     ?string $waitForExpression,
     ?string $emulatedMediaType,
     array $cookies,
-    ?string $userAgent,
     array $extraHttpHeaders,
     array $failOnHttpStatusCodes,
     bool $failOnConsoleExceptions,
-    ?bool $skipNetworkIdleEvent,
+    bool $skipNetworkIdleEvent,
     array $assets
 ): void {
     expect($body)->unless($width === null, fn ($body) => $body->toContainFormValue('width', $width . ''));
@@ -510,8 +492,6 @@ function expectChromiumScreenshotOptions(
         expect($body)->toContainFormValue('cookies', $json);
     }
 
-    expect($body)->unless($userAgent === null, fn ($body) => $body->toContainFormValue('userAgent', $userAgent));
-
     if (count($extraHttpHeaders) > 0) {
         $json = json_encode($extraHttpHeaders);
         if ($json === false) {
@@ -531,7 +511,7 @@ function expectChromiumScreenshotOptions(
     }
 
     expect($body)->unless($failOnConsoleExceptions === false, fn ($body) => $body->toContainFormValue('failOnConsoleExceptions', '1'));
-    expect($body)->unless($skipNetworkIdleEvent === null, fn ($body) => $body->toContainFormValue('skipNetworkIdleEvent', $skipNetworkIdleEvent === true ? '1' : '0'));
+    expect($body)->unless($skipNetworkIdleEvent === false, fn ($body) => $body->toContainFormValue('skipNetworkIdleEvent', '1'));
 
     if (count($assets) <= 0) {
         return;
