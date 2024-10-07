@@ -209,7 +209,7 @@ class ChromiumPdf
      * Note: it automatically sets the index filename to "index.html", as
      * required by Gotenberg.
      */
-    public function html(Stream|null $index): RequestInterface
+    public function html(?Stream $index): RequestInterface
     {
         if ($index !== null) {
             $this->formFile('index.html', $index->getStream());
@@ -226,7 +226,7 @@ class ChromiumPdf
      * Note: it automatically sets the index filename to "index.html", as
      * required by Gotenberg.
      */
-    public function markdown(Stream|null $index, Stream ...$markdowns): RequestInterface
+    public function markdown(?Stream $index, Stream ...$markdowns): RequestInterface
     {
         if ($index !== null) {
             $this->formFile('index.html', $index->getStream());

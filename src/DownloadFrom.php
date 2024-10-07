@@ -8,11 +8,14 @@ use JsonSerializable;
 
 class DownloadFrom implements JsonSerializable
 {
-    /** @param array<string,string> $extraHttpHeaders */
-    public function __construct(
-        public readonly string $url,
-        public readonly array|null $extraHttpHeaders = null,
-    ) {
+    public string $url;
+    /** @var array<string,string> $extraHttpHeaders */
+    public ?array $extraHttpHeaders;
+
+    public function __construct(string $url, ?array $extraHttpHeaders = null)
+    {
+        $this->url = $url;
+        $this->extraHttpHeaders = $extraHttpHeaders;
     }
 
     /** @return array<string,string|array<string,string>> */
