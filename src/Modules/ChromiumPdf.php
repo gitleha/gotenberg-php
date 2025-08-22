@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Gotenberg\Modules;
 
 use Gotenberg\Exceptions\NativeFunctionErrored;
+use Gotenberg\SplitMode;
 use Gotenberg\Stream;
 use Psr\Http\Message\RequestInterface;
 
@@ -85,6 +86,26 @@ class ChromiumPdf
     }
 
     /**
+     * Embeds the document outline into the PDF.
+     */
+    public function generateDocumentOutline(): self
+    {
+        $this->formValue('generateDocumentOutline', true);
+
+        return $this;
+    }
+
+    /**
+     * Generates tagged (accessible) PDF.
+     */
+    public function generateTaggedPdf(): self
+    {
+        $this->formValue('generateTaggedPdf', true);
+
+        return $this;
+    }
+
+    /**
      * Prints the background graphics.
      */
     public function printBackground(): self
@@ -147,6 +168,18 @@ class ChromiumPdf
     public function footer(Stream $footer): self
     {
         $this->formFile('footer.html', $footer->getStream());
+
+        return $this;
+    }
+
+    /**
+     * Splits the resulting PDF.
+     */
+    public function split(SplitMode $mode): self
+    {
+        $this->formValue('splitMode', $mode->mode);
+        $this->formValue('splitSpan', $mode->span);
+        $this->formValue('splitUnify', $mode->unify ?: '0');
 
         return $this;
     }

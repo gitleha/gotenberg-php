@@ -5,6 +5,7 @@
     <p align="center">
         <a href="https://packagist.org/packages/gotenberg/gotenberg-php"><img alt="Latest Version" src="https://poser.pugx.org/gotenberg/gotenberg-php/v" /></a>
         <a href="https://packagist.org/packages/gotenberg/gotenberg-php"><img alt="Total Downloads" src="https://poser.pugx.org/gotenberg/gotenberg-php/downloads" /></a>
+        <a href="https://packagist.org/packages/gotenberg/gotenberg-php"><img alt="Monthly Downloads" src="https://poser.pugx.org/gotenberg/gotenberg-php/d/monthly" /></a>
         <a href="https://github.com/gotenberg/gotenberg-php/actions/workflows/continuous_integration.yml"><img alt="Continuous Integration" src="https://github.com/gotenberg/gotenberg-php/actions/workflows/continuous_integration.yml/badge.svg" /></a>
         <a href="https://codecov.io/gh/gotenberg/gotenberg-php"><img alt="https://codecov.io/gh/gotenberg/gotenberg" src="https://codecov.io/gh/gotenberg/gotenberg-php/branch/main/graph/badge.svg" /></a>
     </p>
@@ -21,6 +22,9 @@ PDF files, and more!
 | `8.x` **(current)** | `v2.x` **(current)**                                                                              |
 | `7.x`               | `v1.x`                                                                                            |
 | `6.x`               | [thecodingmachine/gotenberg-php-client](https://github.com/thecodingmachine/gotenberg-php-client) |
+
+> [!TIP]
+> A [Symfony Bundle](https://github.com/sensiolabs/GotenbergBundle) is also available!
 
 ## Quick Examples
 
@@ -54,7 +58,7 @@ $response = Gotenberg::send(
 
 ## Requirement
 
-This packages requires [Gotenberg](https://gotenberg.dev), a Docker-powered stateless API for PDF files.
+This packages requires [Gotenberg](https://gotenberg.dev), a containerized API for seamless PDF conversion.
 
 See the [installation guide](https://gotenberg.dev/docs/getting-started/installation) for more information.
 
@@ -102,7 +106,6 @@ use Gotenberg\Gotenberg;
 Gotenberg::chromium($apiUrl)
     ->pdf()                  // Or screenshot().
     ->singlePage()           // Optional.
-    ->skipNetworkIdleEvent() // Optional.
     ->url('https://my.url'));
 ```
 
@@ -122,7 +125,8 @@ Gotenberg::libreOffice($apiUrl)
 // Alternatively, you may also set the content directly.
 Gotenberg::chromium($apiUrl)
     ->pdf()
-    ->html(Stream::string('<html><body><p>Hello, world!</p></body></html>'));
+    ->assets(Stream::string('style.css', 'body{font-family: Arial, Helvetica, sans-serif;}'))
+    ->html(Stream::string('index.html', '<html><head><link rel="stylesheet" type="text/css" href="style.css"></head><body><p>Hello, world!</p></body></html>'));
 
 // Or create your stream from scratch.
 Gotenberg::libreOffice($apiUrl)
@@ -252,7 +256,7 @@ $request = Gotenberg::chromium($apiUrl)
 Please note that it should be the same value as defined by the `--api-trace-header` Gotenberg's property.
 
 The response from Gotenberg will also contain the trace header. In case of error, both the `Gotenberg::send` and 
-`Gotenberg::save` methods throw a `GotenbergApiErroed` exception that provides the following method for retrieving the 
+`Gotenberg::save` methods throw a `GotenbergApiErrored` exception that provides the following method for retrieving the 
 trace:
 
 ```php

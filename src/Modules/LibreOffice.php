@@ -8,6 +8,7 @@ use Gotenberg\Exceptions\NativeFunctionErrored;
 use Gotenberg\HrtimeIndex;
 use Gotenberg\Index;
 use Gotenberg\MultipartFormDataModule;
+use Gotenberg\SplitMode;
 use Gotenberg\Stream;
 use Psr\Http\Message\RequestInterface;
 
@@ -60,6 +61,17 @@ class LibreOffice
     public function nativePageRanges(string $ranges): self
     {
         $this->formValue('nativePageRanges', $ranges);
+
+        return $this;
+    }
+
+    /**
+     * Specifies whether to update the indexes before conversion, keeping in
+     * mind that doing so might result in missing links in the final PDF.
+     */
+    public function updateIndexes(bool $update = true): self
+    {
+        $this->formValue('updateIndexes', $update ?: '0');
 
         return $this;
     }
@@ -320,6 +332,28 @@ class LibreOffice
     {
         $this->merge = true;
         $this->formValue('merge', true);
+
+        return $this;
+    }
+
+    /**
+     * Splits the resulting PDFs.
+     */
+    public function split(SplitMode $mode): self
+    {
+        $this->formValue('splitMode', $mode->mode);
+        $this->formValue('splitSpan', $mode->span);
+        $this->formValue('splitUnify', $mode->unify ?: '0');
+
+        return $this;
+    }
+
+    /**
+     * Defines whether the resulting PDF should be flattened.
+     */
+    public function flatten(): self
+    {
+        $this->formValue('flatten', true);
 
         return $this;
     }
